@@ -1,0 +1,43 @@
+from typing import Optional
+
+from aspyx.di import injectable
+from aspyx.mapper import Mapper
+from aspyx_message_server.push_interfaces.persistence import BaseRepository, SessionFactory, query
+from aspyx_message_server.push_interfaces.entity import OnEventEntity, InterfaceHandlerEntity
+
+
+@injectable()
+class OnEventRepository(BaseRepository[OnEventEntity]):
+    # constructor
+
+    def __init__(self, factory: SessionFactory):
+        super().__init__(OnEventEntity)
+
+        self.session_factory = factory
+
+    # public
+
+    @query()
+    def find_by_event(self):
+        ...
+
+    def find_by_id(self, id: str, mapper: Optional[Mapper] = None):
+        return self.find(id, mapper=mapper)
+
+@injectable()
+class OnInterfaceHandlerRepository(BaseRepository[InterfaceHandlerEntity]):
+    # constructor
+
+    def __init__(self, factory: SessionFactory):
+        super().__init__(InterfaceHandlerEntity)
+
+        self.session_factory = factory
+
+    # public
+
+    @query()
+    def find_by_sink(self):
+        ...
+
+    def find_by_id(self, id: str, mapper: Optional[Mapper] = None):
+        return self.find(id, mapper=mapper)

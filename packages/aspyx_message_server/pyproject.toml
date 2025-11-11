@@ -1,0 +1,43 @@
+
+
+[project]
+name = "message_server"
+version = "0.0.1"
+description = "showcase stuff"
+authors = [{ name = "Andreas Ernst", email = "andreas.ernst7@gmail.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "aspyx>=1.9.0",
+    "aspyx_service>=0.11.1",
+    "aspyx_event>=0.9.3",
+    "python-qpid-proton >=0.40.0",
+    "stomp.py>=8.2.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+source = "src"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aspyx_message_server"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.hatch.envs.test]
+dependencies = [
+    ".",
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "anyio",
+    "PyJWT"
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true

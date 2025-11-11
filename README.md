@@ -1,2 +1,3 @@
 # aspyx_showcase
-showcase for aspyx library
+
+showcase for the aspyx library
