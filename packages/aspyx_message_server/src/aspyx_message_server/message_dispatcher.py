@@ -160,7 +160,7 @@ class MessageDispatcher:
     # main entry
 
     def dispatch(self, message):
-        handler = next(iter(self.handler.values())) # self.handler.items()[0]#TODO .get(type(message))
+        handler = self.handler.get(type(message))
         if handler is not None:
             handler.handle(message)
         else:
