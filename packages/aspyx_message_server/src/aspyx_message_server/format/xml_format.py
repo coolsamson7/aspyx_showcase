@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
-from aspyx_message_server.push_interfaces.message_mapper import MessageMapper
-from aspyx_message_server.push_interfaces.compiler import ClassContext, ExpressionCompiler, ParseContext
+from aspyx_message_server.message_mapper import MessageMapper
+from aspyx_message_server.compiler import ClassContext, ExpressionCompiler, ParseContext
 
 class XMLMapper(MessageMapper):
     def __init__(self, template, context: ParseContext):

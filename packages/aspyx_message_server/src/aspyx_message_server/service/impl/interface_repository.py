@@ -2,8 +2,8 @@ from typing import Optional
 
 from aspyx.di import injectable
 from aspyx.mapper import Mapper
-from aspyx_message_server.push_interfaces.persistence import BaseRepository, SessionFactory, query
-from aspyx_message_server.push_interfaces.entity import OnEventEntity, InterfaceHandlerEntity
+from aspyx_message_server.persistence import BaseRepository, SessionFactory, query
+from aspyx_message_server.entity import OnEventEntity, InterfaceHandlerEntity
 
 
 @injectable()

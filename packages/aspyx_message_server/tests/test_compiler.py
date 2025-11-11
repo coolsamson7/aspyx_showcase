@@ -1,9 +1,9 @@
 import ast
 import unittest
 
-from aspyx_message_server.push_interfaces.compiler import ParseContext, TypedFunction, ExpressionCompiler, EvalContext, ClassContext
-from aspyx_message_server.push_interfaces.format import JSONMapper, XMLMapper
-from aspyx_message_server.push_interfaces.message_dispatcher import Filter
+from aspyx_message_server.compiler import ParseContext, TypedFunction, ExpressionCompiler, EvalContext, ClassContext
+from aspyx_message_server.format import JSONMapper, XMLMapper
+from aspyx_message_server.message_dispatcher import Filter
 from .model import Turnaround, Flight, Money
 
 class TestCompiler(unittest.TestCase):

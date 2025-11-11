@@ -5,7 +5,7 @@ from aspyx.di.aop import advice, error, Invocation
 from aspyx.exception import ExceptionManager, catch
 from aspyx_service import implementation, AbstractComponent, HealthCheckManager, health, ChannelAddress, Server, \
     component_services
-from aspyx_message_server.push_interfaces.service import InterfaceComponent
+from aspyx_message_server.service import InterfaceComponent
 
 
 @implementation()

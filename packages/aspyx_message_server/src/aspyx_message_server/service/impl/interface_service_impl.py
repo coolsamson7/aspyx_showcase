@@ -8,12 +8,12 @@ from aspyx.mapper import Mapper, MappingDefinition, matching_properties
 from aspyx.reflection import TypeDescriptor
 from aspyx_event import EventManager
 from aspyx_service import implementation
-from aspyx_message_server.push_interfaces.message_event import UpdateMessagesEvent
-from aspyx_message_server.push_interfaces.persistence import transactional, RelationSynchronizer, get_current_session
-from aspyx_message_server.push_interfaces.entity import OnEventEntity, InterfaceHandlerEntity
-from aspyx_message_server.push_interfaces.model.interface_dto import OnEventDTO, InterfaceHandlerDTO
-from aspyx_message_server.push_interfaces.service import InterfaceService
-from aspyx_message_server.push_interfaces.service.impl import OnEventRepository
+from aspyx_message_server.message_event import UpdateMessagesEvent
+from aspyx_message_server.persistence import transactional, RelationSynchronizer, get_current_session
+from aspyx_message_server.entity import OnEventEntity, InterfaceHandlerEntity
+from aspyx_message_server.model.interface_dto import OnEventDTO, InterfaceHandlerDTO
+from aspyx_message_server.service import InterfaceService
+from aspyx_message_server.service.impl import OnEventRepository
 
 @implementation()
 class InterfaceServiceImpl(InterfaceService):

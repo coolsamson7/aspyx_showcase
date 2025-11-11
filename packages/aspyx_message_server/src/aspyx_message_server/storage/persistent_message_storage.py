@@ -2,11 +2,11 @@ import json
 from typing import List, Optional
 
 from aspyx.di import injectable, inject_environment, Environment
-from aspyx_message_server.push_interfaces.entity import InterfaceHandlerEntity, Base
-from aspyx_message_server.push_interfaces.message_dispatcher import MessageManagerStorage, MessageDispatcher
-from aspyx_message_server.push_interfaces.persistence import transactional, EngineFactory
-from aspyx_message_server.push_interfaces.service.impl import OnEventRepository
-from packages.aspyx_message_server.tests.model import Turnaround
+from aspyx_message_server.entity import InterfaceHandlerEntity
+from aspyx_message_server.message_dispatcher import MessageManagerStorage, MessageDispatcher
+from aspyx_message_server.persistence import transactional
+from aspyx_message_server.service.impl import OnEventRepository
+from packages.aspyx_message_server.tests.model import Turnaround # TODO WTF
 
 
 @injectable() # TODO for now

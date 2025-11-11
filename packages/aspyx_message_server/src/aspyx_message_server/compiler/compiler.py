@@ -1,5 +1,4 @@
 import operator
-from dataclasses import dataclass
 
 
 import ast

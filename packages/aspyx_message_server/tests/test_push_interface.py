@@ -18,12 +18,12 @@ from aspyx_event import EventManager, event_listener, EventListener  # , StompPr
 from aspyx.di import module, Environment, create
 from aspyx_service import ServiceModule, SessionManager
 from aspyx_service.service import LocalComponentRegistry, ServiceManager
-from aspyx_message_server.push_interfaces.persistence import EngineFactory
-from aspyx_message_server.push_interfaces import MessageDispatcher, PushInterfaceModule
-from aspyx_message_server.push_interfaces.compiler.compiler import TypedFunction
-from aspyx_message_server.push_interfaces.message_dispatcher import message, forward
-from aspyx_message_server.push_interfaces.model import OnEventDTO, InterfaceHandlerDTO
-from aspyx_message_server.push_interfaces.service import InterfaceService
+from aspyx_message_server.persistence import EngineFactory
+from aspyx_message_server import MessageDispatcher, PushInterfaceModule
+from aspyx_message_server.compiler.compiler import TypedFunction
+from aspyx_message_server.message_dispatcher import message, forward
+from aspyx_message_server.model import OnEventDTO, InterfaceHandlerDTO
+from aspyx_message_server.service import InterfaceService
 
 from .messages import TurnaroundEvent
 from .model import Turnaround, Money, Flight
@@ -178,7 +178,7 @@ def environment():
 
     environment.destroy()
 
-from aspyx_message_server.push_interfaces.entity import Base, OnEventEntity, InterfaceHandlerEntity
+from aspyx_message_server.entity import Base, OnEventEntity, InterfaceHandlerEntity
 
 
 @pytest.mark.asyncio(scope="function")

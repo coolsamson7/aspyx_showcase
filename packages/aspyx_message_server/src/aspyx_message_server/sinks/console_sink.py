@@ -1,4 +1,4 @@
-from aspyx_message_server.push_interfaces import MessageSink, message_sink
+from aspyx_message_server import MessageSink, message_sink
 
 
 @message_sink(name="console")

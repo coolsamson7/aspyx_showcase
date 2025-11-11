@@ -1,7 +1,7 @@
 import json
 
-from aspyx_message_server.push_interfaces.message_mapper import MessageMapper
-from aspyx_message_server.push_interfaces.compiler import ExpressionCompiler, ParseContext, ClassContext
+from aspyx_message_server.message_mapper import MessageMapper
+from aspyx_message_server.compiler import ExpressionCompiler, ParseContext, ClassContext
 
 class JSONMapper(MessageMapper):
     def __init__(self, template, context: ParseContext):

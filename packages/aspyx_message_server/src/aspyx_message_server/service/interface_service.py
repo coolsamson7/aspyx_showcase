@@ -4,7 +4,7 @@ import uuid
 from typing import List
 
 from aspyx_service import service, Service
-from aspyx_message_server.push_interfaces.model.interface_dto import OnEventDTO
+from aspyx_message_server.model.interface_dto import OnEventDTO
 
 
 @service(name="interface-service", description="crud service for interfaces")
