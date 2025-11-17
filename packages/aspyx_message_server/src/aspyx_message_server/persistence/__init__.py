@@ -1,14 +1,13 @@
 from typing import Type
 
-from sqlalchemy.orm import DeclarativeMeta, ColumnProperty, class_mapper, RelationshipProperty
+from sqlalchemy.orm import ColumnProperty, class_mapper, RelationshipProperty
 
 from aspyx.reflection import TypeDescriptor
 from aspyx.reflection.reflection import PropertyExtractor
-from .transactional import transactional, get_current_session
-from .engine_factory import EngineFactory
-from .session_factory import SessionFactory
+from .transactional import transactional, transaction, get_current_session
 from .repository import BaseRepository, query
 from .relation_synchronizer import RelationSynchronizer
+from .persistent_unit import PersistentUnit
 
 class SQLAlchemyPropertyExtractor(PropertyExtractor):
     def extract(self, cls: Type):
@@ -68,6 +67,8 @@ class SQLAlchemyPropertyExtractor(PropertyExtractor):
 TypeDescriptor.register_extractor(SQLAlchemyPropertyExtractor())
 
 __all__ = [
+    # persistent_unit
+
     # repository
 
     "BaseRepository",
@@ -76,15 +77,8 @@ __all__ = [
     # transactional
 
     "transactional",
+    "transaction",
     "get_current_session",
-
-    # engine_factory
-
-    "EngineFactory",
-
-    # session_factory
-
-    "SessionFactory",
 
     # relation_synchronizer
 

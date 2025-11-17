@@ -18,7 +18,8 @@ from aspyx_event import EventManager, event_listener, EventListener  # , StompPr
 from aspyx.di import module, Environment, create
 from aspyx_service import ServiceModule, SessionManager
 from aspyx_service.service import LocalComponentRegistry, ServiceManager
-from aspyx_message_server.persistence import EngineFactory
+
+from aspyx_message_server.entity.base import BasePersistentUnit
 from aspyx_message_server import MessageDispatcher, PushInterfaceModule
 from aspyx_message_server.compiler.compiler import TypedFunction
 from aspyx_message_server.message_dispatcher import message, forward
@@ -150,8 +151,8 @@ class Module:
         return LocalComponentRegistry()
 
     @create()
-    def create_engine_factory(self) -> EngineFactory: # source: YamlConfigurationSource
-        return EngineFactory(url="postgresql+psycopg2://postgres:postgres@localhost:5432/postgres") #TODO
+    def create_persistent_unit(self) -> BasePersistentUnit:
+        return BasePersistentUnit(url="postgresql+psycopg2://postgres:postgres@localhost:5432/postgres")
 
     #@create()
     #def create_engine(self, engine_factory: EngineFactory) -> SessionFactory:
@@ -193,7 +194,7 @@ class TestPushInterface:
 
         # create schema
 
-        #Base.metadata.create_all(environment.get(EngineFactory).get_engine())
+        #PersistentUnit.get_persistent_unit(BasePersistentUnit).create_all()
 
         # create entities
 

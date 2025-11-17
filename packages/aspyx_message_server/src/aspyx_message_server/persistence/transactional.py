@@ -1,16 +1,18 @@
+from contextlib import contextmanager
 from contextvars import ContextVar
+from typing import Optional, Type
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, DeclarativeBase
 
 from aspyx.di import injectable
 from aspyx.di.aop import around, advice, methods, classes, Invocation
 from aspyx.reflection import Decorators
 
-from .session_factory import SessionFactory
+from .persistent_unit import PersistentUnit
 
-def transactional():
+def transactional(persistent_unit : Optional[Type[PersistentUnit]] = None):
     def decorator(func):
-        Decorators.add(func, transactional)
+        Decorators.add(func, transactional, persistent_unit)
         return func #
 
     return decorator
@@ -24,22 +26,30 @@ def get_current_session():
 @advice
 @injectable()
 class TransactionalAdvice:
-    # constructor
-
-    def __init__(self, factory: SessionFactory):
-        self.session_factory = factory
-
     # internal
+
+    def get_persistent_unit(self, invocation: Invocation):
+        tx = Decorators.get_decorator(invocation.func, transactional)
+        if tx is None:
+            tx = Decorators.get_decorator(type(invocation.args[0]), transactional)
+
+        declarative_base = tx.args[0]
+
+        return PersistentUnit.get_persistent_unit(declarative_base)
 
     # advice
 
     @around(methods().decorated_with(transactional), classes().decorated_with(transactional))
-    def call_transactional1(self, invocation: Invocation):
+    def call_transactional(self, invocation: Invocation):
         outer = _current_session.get()
-        if outer:
+        if outer is not None:
             return invocation.proceed()
 
-        session = self.session_factory.create_session()
+        persistent_unit = self.get_persistent_unit(invocation)
+
+        session = persistent_unit.create_session()
+
+        #session = self.session_factory.create_session()
         token = _current_session.set(session)
 
         try:
@@ -53,3 +63,25 @@ class TransactionalAdvice:
         finally:
             session.close()
             _current_session.reset(token)
+
+@contextmanager
+def transaction(base : Optional[Type[DeclarativeBase]] = None):
+    outer = _current_session.get()
+    if outer is not None:
+        yield
+        return
+
+    persistent_unit = PersistentUnit.get_persistent_unit(base)
+    session = persistent_unit.create_session()
+    token = _current_session.set(session)
+
+    try:
+        yield
+        session.flush()
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+        _current_session.reset(token)

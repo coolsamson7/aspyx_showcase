@@ -32,8 +32,6 @@ class PersistentMessageManagerStorage(MessageManagerStorage):
 
     @transactional()
     def load(self, dispatcher):
-        #Base.metadata.create_all(self.environment.get(EngineFactory).get_engine())
-
         on_events = self.repository.find_all()
 
         for on_event in on_events:

@@ -2,7 +2,7 @@ from typing import Optional
 
 from aspyx.di import injectable
 from aspyx.mapper import Mapper
-from aspyx_message_server.persistence import BaseRepository, SessionFactory, query
+from aspyx_message_server.persistence import BaseRepository, query
 from aspyx_message_server.entity import OnEventEntity, InterfaceHandlerEntity
 
 
@@ -10,10 +10,8 @@ from aspyx_message_server.entity import OnEventEntity, InterfaceHandlerEntity
 class OnEventRepository(BaseRepository[OnEventEntity]):
     # constructor
 
-    def __init__(self, factory: SessionFactory):
+    def __init__(self):
         super().__init__(OnEventEntity)
-
-        self.session_factory = factory
 
     # public
 
@@ -28,10 +26,8 @@ class OnEventRepository(BaseRepository[OnEventEntity]):
 class OnInterfaceHandlerRepository(BaseRepository[InterfaceHandlerEntity]):
     # constructor
 
-    def __init__(self, factory: SessionFactory):
+    def __init__(self):
         super().__init__(InterfaceHandlerEntity)
-
-        self.session_factory = factory
 
     # public
 

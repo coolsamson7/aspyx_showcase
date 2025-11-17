@@ -14,4 +14,4 @@ class MessageConsoleSink(MessageSink):
         pass
 
     def send(self, message: str):
-        pass #print(f"{self.name} received message: {message}")
+        print(f"{self.name} received message: {message}")
