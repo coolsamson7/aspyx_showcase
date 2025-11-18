@@ -3,10 +3,10 @@ from typing import List, Optional, Dict, Type
 
 from aspyx.di import inject_environment, Environment
 from aspyx_message_server.entity import InterfaceHandlerEntity
-from aspyx_message_server.message_dispatcher import MessageManagerStorage, MessageDispatcher
+from aspyx_message_server.message_dispatcher import MessageManagerStorage, MessageDispatcher, MessageManager
 from aspyx_message_server.persistence import transactional
 from aspyx_message_server.service.impl import OnEventRepository
-class PersistentMessageManagerStorage(MessageManagerStorage):
+class PersistentMessageManagerStorage(MessageManager.Storage):
     # instance data
 
     classes : Dict[str, Type] = {}

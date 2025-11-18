@@ -11,16 +11,18 @@ from .compiler import ParseContext, TypedFunction, ExpressionCompiler, ClassCont
 from .format import JSONMapper, XMLMapper
 from .message_sink import Config, MessageSink
 
-class MessageManagerStorage:
-    @abstractmethod
-    def load(self, dispatcher):
-        pass
-
 @injectable()
 class MessageManager:
+    # local classes
+
+    class Storage:
+        @abstractmethod
+        def load(self, dispatcher):
+            pass
+
     # constructor
 
-    def __init__(self, storage: MessageManagerStorage, dispatcher: MessageDispatcher):
+    def __init__(self, storage: MessageManager.Storage, dispatcher: MessageDispatcher):
         self.storage = storage
         self.dispatcher = dispatcher
 
