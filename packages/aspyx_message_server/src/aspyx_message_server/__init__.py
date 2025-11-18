@@ -4,7 +4,6 @@ This module provides the core Aspyx service management framework allowing for se
 from aspyx.di import module
 from aspyx_event import EventModule
 
-from .message_mapper import MessageMapper
 from .message_dispatcher import MessageDispatcher
 from .message_sink import MessageSink
 from .message_sink_manager import MessageSinkManager, message_sink
@@ -20,10 +19,6 @@ __all__ = [
     # message_dispatcher
 
     "MessageDispatcher",
-
-    # message_mapper
-
-    "MessageMapper",
 
     # message_sink
 

@@ -1,16 +1,16 @@
 import json
-from typing import List, Optional
+from typing import List, Optional, Dict, Type
 
-from aspyx.di import injectable, inject_environment, Environment
+from aspyx.di import inject_environment, Environment
 from aspyx_message_server.entity import InterfaceHandlerEntity
 from aspyx_message_server.message_dispatcher import MessageManagerStorage, MessageDispatcher
 from aspyx_message_server.persistence import transactional
 from aspyx_message_server.service.impl import OnEventRepository
-from packages.aspyx_message_server.tests.model import Turnaround # TODO WTF
-
-
-@injectable() # TODO for now
 class PersistentMessageManagerStorage(MessageManagerStorage):
+    # instance data
+
+    classes : Dict[str, Type] = {}
+
     # constructor
 
     def __init__(self, repository: OnEventRepository):
@@ -25,8 +25,11 @@ class PersistentMessageManagerStorage(MessageManagerStorage):
 
     # internal
 
+    def register(self, name: str, type : Type):
+        self.classes[name] = type
+
     def find_event_class(self, event: str):
-        return Turnaround # TODO
+        return self.classes[event]
 
     # implement
 

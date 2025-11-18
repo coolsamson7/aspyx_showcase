@@ -25,6 +25,8 @@ from aspyx_message_server.compiler.compiler import TypedFunction
 from aspyx_message_server.message_dispatcher import message, forward
 from aspyx_message_server.model import OnEventDTO, InterfaceHandlerDTO
 from aspyx_message_server.service import InterfaceService
+from aspyx_message_server.service.impl import OnEventRepository
+from aspyx_message_server.storage import PersistentMessageManagerStorage
 
 from .messages import TurnaroundEvent
 from .model import Turnaround, Money, Flight
@@ -139,6 +141,18 @@ class Module:
     # internal
 
     @create()
+    def create_storage(self, on_event_repository : OnEventRepository, persistent_unit : BasePersistentUnit) -> PersistentMessageManagerStorage:
+        storage = PersistentMessageManagerStorage(on_event_repository)
+
+        # register names, so the the db config can be mapped to classes
+
+        storage.register("Turnaround", Turnaround)
+
+        # done
+
+        return storage
+
+    @create()
     def create_session_storage(self) -> SessionManager.Storage:
         return SessionManager.InMemoryStorage(max_size=1000, ttl=3600)
 
@@ -153,10 +167,6 @@ class Module:
     @create()
     def create_persistent_unit(self) -> BasePersistentUnit:
         return BasePersistentUnit(url="postgresql+psycopg2://postgres:postgres@localhost:5432/postgres")
-
-    #@create()
-    #def create_engine(self, engine_factory: EngineFactory) -> SessionFactory:
-    #    return SessionFactory(engine_factory)
 
     def create_exception_manager(self):
         exception_manager = ExceptionManager()
@@ -174,6 +184,9 @@ class Module:
 @pytest.fixture(scope="session")
 def environment():
     environment = Environment(Module)  # start server
+
+    print(environment.report())
+
 
     yield environment
 
@@ -263,7 +276,7 @@ class TestPushInterface:
         AsyncListener.done_event = asyncio.Event()
 
         for i in range(loops):
-            event = TurnaroundEvent(turnaround=Turnaround(id="1", num=0, flight_id="1", price=Money(currency="EUR", value=1)))
+            event = TurnaroundEvent(turnaround=Turnaround(id="1", num=6, flight_id="1", price=Money(currency="EUR", value=1)))
 
             event_manager.send_event(event) # should filter
 

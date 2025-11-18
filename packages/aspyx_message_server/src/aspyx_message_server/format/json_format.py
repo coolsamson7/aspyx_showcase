@@ -1,9 +1,9 @@
 import json
 
-from aspyx_message_server.message_mapper import MessageMapper
+from aspyx_message_server.message_builder import MessageBuilder
 from aspyx_message_server.compiler import ExpressionCompiler, ParseContext, ClassContext
 
-class JSONMapper(MessageMapper):
+class JSONMapper(MessageBuilder):
     def __init__(self, template, context: ParseContext):
         self.compiler = ExpressionCompiler()
         self.parse_context = context
@@ -45,7 +45,7 @@ class JSONMapper(MessageMapper):
 
     # override
 
-    def create(self, instance) -> str:
+    def build(self, instance) -> str:
         tree = self.evaluate_json_dict(self.template, ClassContext(instance))
 
         return json.dumps(tree, indent=2)

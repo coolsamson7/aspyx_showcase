@@ -101,7 +101,7 @@ class TestCompiler(unittest.TestCase):
             }
         }, context=parse_context)
 
-        json = mapper.create(turnaround)
+        json = mapper.build(turnaround)
 
         print(json)
 
@@ -130,7 +130,7 @@ class TestCompiler(unittest.TestCase):
             }
         }, context=parse_context)
 
-        xml = mapper.create(turnaround)
+        xml = mapper.build(turnaround)
 
         print(xml)
 

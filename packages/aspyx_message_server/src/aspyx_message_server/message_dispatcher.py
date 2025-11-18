@@ -5,7 +5,7 @@ from typing import Type, List, Optional, Dict
 
 from aspyx.di import injectable
 
-from .message_mapper import MessageMapper
+from .message_builder import MessageBuilder
 from .message_sink_manager import MessageSinkManager
 from .compiler import ParseContext, TypedFunction, ExpressionCompiler, ClassContext
 from .format import JSONMapper, XMLMapper
@@ -31,9 +31,6 @@ class MessageManager:
     def reload(self):
         self.dispatcher.clear()
         self.storage.load(self.dispatcher)
-
-
-
 
 
 @injectable()
@@ -91,7 +88,7 @@ class MessageDispatcher:
 
         def __init__(self, dispatcher : MessageDispatcher, listener: MessageDispatcher.Listener):
             self.filter : Optional[Filter] = None
-            self.mapper : List[MessageMapper] = []
+            self.mapper : List[MessageBuilder] = []
             self.sinks : List[MessageSink] = []
 
             # parse context
@@ -130,7 +127,7 @@ class MessageDispatcher:
             # forward
 
             for i in range(len(self.sinks)):
-                self.sinks[i].send(self.mapper[i].create(message))
+                self.sinks[i].send(self.mapper[i].build(message))
 
     # constructor
 

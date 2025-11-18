@@ -406,9 +406,9 @@ class SingletonScope(Scope):
 
     # override
 
-    def get(self, provider: AbstractInstanceProvider, environment: Environment, argProvider: Callable[[],list]):
+    def get(self, provider: AbstractInstanceProvider, environment: Environment, argProvider: Callable[[], list]):
         if self.value is None:
-            self.value = provider.create(environment, *argProvider())
+            self.value = provider.build(environment, *argProvider())
 
         return self.value
 ```

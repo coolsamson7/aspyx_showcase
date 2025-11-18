@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from aspyx_event import event
-from packages.aspyx_message_server.tests.model import Turnaround
+from .model import Turnaround
 
 @dataclass
 @event(durable=False)

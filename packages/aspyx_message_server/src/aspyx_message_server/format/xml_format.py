@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 
-from aspyx_message_server.message_mapper import MessageMapper
+from aspyx_message_server.message_builder import MessageBuilder
 from aspyx_message_server.compiler import ClassContext, ExpressionCompiler, ParseContext
 
-class XMLMapper(MessageMapper):
+class XMLMapper(MessageBuilder):
     def __init__(self, template, context: ParseContext):
         self.compiler = ExpressionCompiler()
         self.parse_context = context
@@ -56,7 +56,7 @@ class XMLMapper(MessageMapper):
 
     # override
 
-    def create(self, instance) -> str:
+    def build(self, instance) -> str:
         ctx = ClassContext(instance)
         elem = self.evaluate_xml_template(self.template, ctx)
         return ET.tostring(elem, encoding="unicode", method="xml")
