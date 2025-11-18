@@ -10,6 +10,8 @@ from .message_sink_manager import MessageSinkManager
 from .compiler import ParseContext, TypedFunction, ExpressionCompiler, ClassContext
 from .format import JSONMapper, XMLMapper
 from .message_sink import Config, MessageSink
+from .util import CopyOnWriteDict
+
 
 @injectable()
 class MessageManager:
@@ -135,11 +137,12 @@ class MessageDispatcher:
 
     def __init__(self, message_sink_manager: MessageSinkManager):
         self.message_sink_manager = message_sink_manager
-        self.handler : Dict[Type,MessageDispatcher.Handler] = {}
-        self.functions : Dict[str,TypedFunction] = {
+        self.handler = CopyOnWriteDict[Type,MessageDispatcher.Handler]()
+        self.functions = CopyOnWriteDict[str,TypedFunction]({
             "length": TypedFunction(lambda str: len(str), [str], int)
             # TODO more
-        }
+            }
+        )
 
     # public
 
@@ -147,7 +150,7 @@ class MessageDispatcher:
         self.handler.clear()
 
     def register_functions(self, functions =  Dict[str,TypedFunction]):
-        self.functions.update(functions)
+        self.functions.update_all(functions)
 
     # fluent
 
