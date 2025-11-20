@@ -7,11 +7,7 @@ from aspyx_event import EventModule
 from .message_dispatcher import MessageDispatcher
 from .message_sink import MessageSink
 from .message_sink_manager import MessageSinkManager, message_sink
-
-@module(imports=[EventModule])
-class PushInterfaceModule:
-    pass
-
+from .module import PushInterfaceModule
 
 __all__ = [
     "PushInterfaceModule",
@@ -29,3 +25,5 @@ __all__ = [
     "MessageSinkManager",
     "message_sink"
 ]
+
+
