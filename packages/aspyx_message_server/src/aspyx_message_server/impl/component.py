@@ -20,7 +20,7 @@ class WeatherServiceServiceImpl(WeatherService):
     def __init__(self, weather_manager: WeatherManager):
         self.weather_manager = weather_manager
 
-    # implement ChatService
+    # implement WeatherService
 
     def get_weather(self) -> Weather:
         return self.weather_manager.get_weather()

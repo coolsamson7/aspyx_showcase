@@ -38,7 +38,7 @@ class WeatherManager:
 
     # job
 
-    #@scheduled(trigger=cron(second="0-59"), group="group", max=1)
+    @scheduled(trigger=cron(second="0-59"), group="group", max=1)
     def poll_providers(self):
         for provider in self.providers:
             self.weather = provider.get_weather()
