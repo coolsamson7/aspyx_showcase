@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import List
 
 from aspyx.di import injectable, inject
+from aspyx_job import scheduled, cron
 
 
 @dataclass()

@@ -10,7 +10,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch]
 projects = [
-    "packages/aspyx_messasge_server",
+    "packages/aspyx_message_server",
 ]
 
 [tool.hatch.envs.default]

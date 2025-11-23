@@ -8,9 +8,9 @@ from aspyx_service import  health, AbstractComponent, \
     HealthCheckManager, component_services, ChannelAddress, Server
 
 from aspyx_service import  implementation
-
 from aspyx_message_server.component import WeatherComponent, WeatherService
 from aspyx_message_server.weather import WeatherManager
+from aspyx_message_server.weather.weather_manager import Weather
 
 
 @implementation()
